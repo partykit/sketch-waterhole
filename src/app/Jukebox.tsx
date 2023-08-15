@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import usePartySocket from "partysocket/react";
-import YouTube, { YouTubeProps, YouTubePlayer } from "react-youtube";
+import ReactPlayer from "react-player";
 import ConnectionStatus from "@/app/components/ConnectionStatus";
 
 const host = process.env.NEXT_PUBLIC_PARTYKIT_HOST!;
@@ -12,7 +12,9 @@ const protocol =
     : "https";
 
 export default function Jukebox() {
-  const [player, setPlayer] = useState<YouTubePlayer | null>(null);
+  const [player, setPlayer] = useState<ReactPlayer | null>(null);
+  const [showPlayer, setShowPlayer] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   const socket = usePartySocket({
     host: host,
@@ -26,43 +28,43 @@ export default function Jukebox() {
     },
   });
 
+  useEffect(() => {
+    setShowPlayer(true);
+  }, []);
+
   const ensurePlaybackState = (state: "play" | "pause") => {
     if (!player) return;
 
     if (state === "play") {
-      player.playVideo();
+      setIsPlaying(true);
     } else if (state === "pause") {
-      player.pauseVideo();
+      setIsPlaying(false);
     }
   };
 
-  const opts: YouTubeProps["opts"] = {
-    height: "390",
-    width: "640",
-    playerVars: {
-      // https://developers.google.com/youtube/player_parameters
-      autoplay: 0,
-    },
+  const onReady = (event: ReactPlayer) => setPlayer(event);
+  const onPlay = () => {
+    setIsPlaying(true);
+    socket.send(JSON.stringify({ type: "playback", state: "play" }));
   };
-
-  const onReady = (event: { target: YouTubePlayer }) => {
-    setPlayer(event.target);
+  const onPause = () => {
+    setIsPlaying(false);
+    socket.send(JSON.stringify({ type: "playback", state: "pause" }));
   };
 
   return (
     <div>
       <ConnectionStatus socket={socket} />
-      <YouTube
-        videoId="ydYDqZQpim8"
-        opts={opts}
-        onReady={(event) => onReady(event)}
-        onPlay={() =>
-          socket.send(JSON.stringify({ type: "playback", state: "play" }))
-        }
-        onPause={() =>
-          socket.send(JSON.stringify({ type: "playback", state: "pause" }))
-        }
-      />
+      {showPlayer && (
+        <ReactPlayer
+          url="https://www.youtube.com/watch?v=ydYDqZQpim8"
+          muted
+          playing={isPlaying}
+          onReady={(event) => onReady(event)}
+          onPlay={() => onPlay()}
+          onPause={() => onPause()}
+        />
+      )}
     </div>
   );
 }
