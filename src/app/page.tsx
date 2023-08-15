@@ -1,3 +1,5 @@
+import Jukebox from "./Jukebox";
+
 export default function Home() {
   return (
     <main
@@ -5,6 +7,7 @@ export default function Home() {
       style={{ minHeight: "100dvh" }}
     >
       <h1 className="text-4xl font-semibold pb-6">YouTube party</h1>
+      <Jukebox />
     </main>
   );
 }
