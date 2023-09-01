@@ -1,4 +1,5 @@
 import Jukebox from "./Jukebox";
+import Chat from "./Chat";
 
 export default function Home() {
   return (
@@ -8,6 +9,7 @@ export default function Home() {
     >
       <h1 className="text-4xl font-semibold pb-6">YouTube party</h1>
       <Jukebox />
+      <Chat />
     </main>
   );
 }
