@@ -61,17 +61,14 @@ export default function Jukebox() {
         width: window.innerWidth,
         height: window.innerHeight,
       });
+      setPlayerIsVertical(
+        window.innerWidth / window.innerHeight < ASPECT_RATIO
+      );
     };
     window.addEventListener("resize", handleResize);
     handleResize();
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-
-  useLayoutEffect(() => {
-    const isVertical =
-      windowDimensions.width / windowDimensions.height < ASPECT_RATIO;
-    setPlayerIsVertical(isVertical);
-  }, [windowDimensions]);
 
   const playerDimensions = {
     width: playerIsVertical
