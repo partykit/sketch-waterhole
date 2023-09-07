@@ -8,7 +8,7 @@ import ConnectionStatus from "@/app/components/ConnectionStatus";
 export default function Jukebox() {
   const [player, setPlayer] = useState<ReactPlayer | null>(null);
   const [showPlayer, setShowPlayer] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(true);
 
   const socket = usePartySocket({
     host: process.env.NEXT_PUBLIC_PARTYKIT_HOST!,
@@ -98,7 +98,7 @@ export default function Jukebox() {
         <div className="fixed top-0" style={containerStyle}>
           <div className="absolute top-0 left-0 right-0 bottom-0 w-screen h-screen">
             <ReactPlayer
-              url="https://www.youtube.com/watch?v=ydYDqZQpim8"
+              url="https://www.youtube.com/watch?v=jfKfPfyJRdk"
               muted
               playing={isPlaying}
               onReady={(event) => onReady(event)}
