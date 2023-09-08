@@ -41,11 +41,11 @@ export default function Jukebox() {
   const onReady = (event: ReactPlayer) => setPlayer(event);
   const onPlay = () => {
     setIsPlaying(true);
-    socket.send(JSON.stringify({ type: "playback", state: "play" }));
+    socket && socket.send(JSON.stringify({ type: "playback", state: "play" }));
   };
   const onPause = () => {
     setIsPlaying(false);
-    socket.send(JSON.stringify({ type: "playback", state: "pause" }));
+    socket && socket.send(JSON.stringify({ type: "playback", state: "pause" }));
   };
 
   /* LAYOUT CALCULATIONS START */
@@ -70,7 +70,7 @@ export default function Jukebox() {
     window.addEventListener("resize", handleResize);
     handleResize();
     return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  }, [ASPECT_RATIO]);
 
   const playerDimensions = {
     width: playerIsVertical
