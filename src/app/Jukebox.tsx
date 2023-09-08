@@ -91,14 +91,16 @@ export default function Jukebox() {
   // Namibia https://www.youtube.com/watch?v=ydYDqZQpim8
   // Lofi beats https://www.youtube.com/watch?v=jfKfPfyJRdk
 
+  // pointer-events-none on the player container prevents the users from play/pausing
+
   return (
     <div>
       <ConnectionStatus socket={socket} />
       {showPlayer && (
         <div className="fixed top-0" style={containerStyle}>
-          <div className="absolute top-0 left-0 right-0 bottom-0 w-screen h-screen">
+          <div className="absolute top-0 left-0 right-0 bottom-0 w-screen h-screen pointer-events-none">
             <ReactPlayer
-              url="https://www.youtube.com/watch?v=jfKfPfyJRdk"
+              url="https://www.youtube.com/watch?v=ydYDqZQpim8"
               muted
               playing={isPlaying}
               onReady={(event) => onReady(event)}
