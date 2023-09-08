@@ -24,8 +24,9 @@ const readyStates = {
 
 export default function ConnectionStatus(props: {
   socket: PartySocket | WebSocket | null;
+  connections?: number;
 }) {
-  const { socket } = props;
+  const { socket, connections } = props;
   const [readyState, setReadyState] = useState<number>(
     socket?.readyState === 1 ? 1 : 0
   );
@@ -47,11 +48,16 @@ export default function ConnectionStatus(props: {
     }
   }, [socket]);
 
+  let badge = display.text;
+  if (connections && connections > 0 && readyState === PartySocket.OPEN) {
+    badge = `${connections} here`;
+  }
+
   return (
     <div className="z-20 fixed bottom-2 right-2 flex justify-end">
-      <div className="flex gap-2 justify-center items-center bg-stone-50 rounded-full shadow-md border border-stone-300 pl-2 sm:pl-3 pr-1 sm:pr-2 py-1 sm:py-2">
+      <div className="flex gap-1 sm:gap-2 justify-center items-center bg-stone-50 rounded-full shadow-md border border-stone-300 pl-2 sm:pl-3 pr-1 sm:pr-2 py-1 sm:py-2">
         <p className="text-xs font-base uppercase tracking-wider leading-none text-stone-500">
-          {display.text}
+          {badge}
         </p>
         <div className={`w-3 h-3 rounded-full ${display.className}`}></div>
       </div>

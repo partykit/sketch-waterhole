@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
-import usePartySocket from "partysocket/react";
+import { useState, useEffect } from "react";
 import ChatNameForm from "@/app/components/ChatNameForm";
 import ChatForm from "./components/ChatForm";
+import { useMultiplayer } from "@/app/providers/multiplayer-context";
 
 type ChatMessage = {
   name: string;
@@ -15,18 +15,21 @@ const MAX_MESSAGES = 10;
 export default function Chat() {
   const [name, setName] = useState<string | null>(null);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const { socket } = useMultiplayer();
 
-  const socket = usePartySocket({
-    host: process.env.NEXT_PUBLIC_PARTYKIT_HOST!,
-    party: "chat",
-    room: "shared-jukebox",
-    onMessage: (message) => {
+  useEffect(() => {
+    if (!socket) return;
+    const handleMessage = (message: MessageEvent) => {
       const msg = JSON.parse(message.data as string);
       if (msg.type === "chat") {
         recordMessage(msg.name, msg.message);
       }
-    },
-  });
+    };
+    socket.addEventListener("message", handleMessage);
+    return () => {
+      socket.removeEventListener("message", handleMessage);
+    };
+  }, [socket]);
 
   const sendMessage = (message: string) => {
     if (!name) return;
@@ -37,9 +40,9 @@ export default function Chat() {
   const recordMessage = (name: string, message: string) => {
     const newMessages = [...messages, { name, message }];
     // Truncate the array to the last 10 messages
-    setMessages(
-      newMessages.slice(Math.max(newMessages.length - MAX_MESSAGES, 0))
-    );
+    setMessages((prevMessages) => {
+      return [...prevMessages, { name, message }].slice(-MAX_MESSAGES);
+    });
   };
 
   return (
@@ -60,7 +63,7 @@ export default function Chat() {
               return (
                 <li
                   key={i}
-                  className={`flex flex-row gap-2 px-3 py-1 bg-white/80 rounded-full justify-start items-baseline ${opacity}`}
+                  className={`flex flex-row gap-2 px-3 py-1 bg-white/90 rounded-full justify-start items-baseline ${opacity}`}
                 >
                   <span className="text-black">{msg.message}</span>
                   <span className="text-xs font-semibold text-black/50">

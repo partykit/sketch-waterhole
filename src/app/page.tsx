@@ -1,5 +1,7 @@
+import MultiplayerContextProvider from "./providers/multiplayer-context";
 import Jukebox from "./Jukebox";
 import Chat from "./Chat";
+import ConnectionBadge from "./components/ConnectionBadge";
 
 export default function Home() {
   return (
@@ -8,8 +10,11 @@ export default function Home() {
       style={{ minHeight: "100dvh" }}
     >
       <h1 className="text-4xl font-semibold pb-6 text-stone-300">Loading...</h1>
-      <Jukebox />
-      <Chat />
+      <MultiplayerContextProvider>
+        <Jukebox />
+        <Chat />
+        <ConnectionBadge />
+      </MultiplayerContextProvider>
     </main>
   );
 }

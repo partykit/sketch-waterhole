@@ -1,26 +1,28 @@
 "use client";
 
 import React, { useState, useEffect, useLayoutEffect } from "react";
-import usePartySocket from "partysocket/react";
 import ReactPlayer from "react-player";
-import ConnectionStatus from "@/app/components/ConnectionStatus";
+import { useMultiplayer } from "@/app/providers/multiplayer-context";
 
 export default function Jukebox() {
   const [player, setPlayer] = useState<ReactPlayer | null>(null);
   const [showPlayer, setShowPlayer] = useState(false);
   const [isPlaying, setIsPlaying] = useState(true);
+  const { socket } = useMultiplayer();
 
-  const socket = usePartySocket({
-    host: process.env.NEXT_PUBLIC_PARTYKIT_HOST!,
-    //party: "youtube-party",
-    room: "shared-jukebox",
-    onMessage: (message) => {
+  useEffect(() => {
+    if (!socket) return;
+    const handleMessage = (message: MessageEvent) => {
       const msg = JSON.parse(message.data as string);
       if (msg.type === "playback") {
         ensurePlaybackState(msg.state);
       }
-    },
-  });
+    };
+    socket.addEventListener("message", handleMessage);
+    return () => {
+      socket.removeEventListener("message", handleMessage);
+    };
+  }, [socket]);
 
   useEffect(() => {
     setShowPlayer(true);
@@ -95,7 +97,6 @@ export default function Jukebox() {
 
   return (
     <div>
-      <ConnectionStatus socket={socket} />
       {showPlayer && (
         <div className="fixed top-0" style={containerStyle}>
           <div className="absolute top-0 left-0 right-0 bottom-0 w-screen h-screen pointer-events-none">

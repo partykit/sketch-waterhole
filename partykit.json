@@ -1,7 +1,4 @@
 {
     "main": "src/partykit/jukebox.ts",
-    "name": "youtube-party",
-    "parties": {
-        "chat": "src/partykit/chat.ts"
-    }
+    "name": "youtube-party"
 }
