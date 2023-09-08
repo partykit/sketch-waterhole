@@ -8,6 +8,7 @@ export default function Jukebox() {
   const [player, setPlayer] = useState<ReactPlayer | null>(null);
   const [showPlayer, setShowPlayer] = useState(false);
   const [isPlaying, setIsPlaying] = useState(true);
+  const [isMuted, setIsMuted] = useState(true);
   const { socket } = useMultiplayer();
 
   useEffect(() => {
@@ -98,20 +99,32 @@ export default function Jukebox() {
   return (
     <div>
       {showPlayer && (
-        <div className="fixed top-0" style={containerStyle}>
-          <div className="absolute top-0 left-0 right-0 bottom-0 w-screen h-screen pointer-events-none">
-            <ReactPlayer
-              url="https://www.youtube.com/watch?v=ydYDqZQpim8"
-              muted
-              playing={isPlaying}
-              onReady={(event) => onReady(event)}
-              onPlay={() => onPlay()}
-              onPause={() => onPause()}
-              width={`${playerDimensions.width}px`}
-              height={`${playerDimensions.height}px`}
-            />
+        <>
+          <div className="fixed top-0" style={containerStyle}>
+            <div className="absolute top-0 left-0 right-0 bottom-0 w-screen h-screen pointer-events-none">
+              <ReactPlayer
+                url="https://www.youtube.com/watch?v=ydYDqZQpim8"
+                muted={isMuted}
+                playing={isPlaying}
+                onReady={(event) => onReady(event)}
+                onPlay={() => onPlay()}
+                onPause={() => onPause()}
+                width={`${playerDimensions.width}px`}
+                height={`${playerDimensions.height}px`}
+              />
+            </div>
           </div>
-        </div>
+          {isMuted && (
+            <button
+              className="absolute top-2 left-2 bg-red-400 hover:bg-red-500 text-white font-4xl z-10 px-1 cursor-pointer"
+              onClick={() => setIsMuted(false)}
+            >
+              Muted!
+              <br />
+              <span className="underline">Tap to enable sound</span>
+            </button>
+          )}
+        </>
       )}
     </div>
   );
