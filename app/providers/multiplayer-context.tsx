@@ -1,5 +1,3 @@
-"use client";
-
 import { createContext, useContext } from "react";
 import PartySocket from "partysocket";
 import usePartySocket from "partysocket/react";
@@ -17,10 +15,11 @@ export function useMultiplayer() {
 }
 
 export default function MultiplayerContextProvider(props: {
+  host: string;
   children: React.ReactNode;
 }) {
   const socket = usePartySocket({
-    host: process.env.NEXT_PUBLIC_PARTYKIT_HOST!,
+    host: props.host,
     //party: "youtube-party",
     room: "shared-jukebox",
   });

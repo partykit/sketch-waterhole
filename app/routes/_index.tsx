@@ -1,6 +1,8 @@
 import { useLoaderData } from "@remix-run/react";
 import type { V2_MetaFunction } from "partymix";
 import WhosHere from "../components/whos-here";
+//import Jukebox from "~/components/jukebox";
+import Video from "~/components/video-example";
 
 // PartyKit will inject the host into the server bundle
 // so let's read it here and expose it to the client
@@ -21,33 +23,12 @@ export default function Index() {
 
   return (
     <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
-      <h1>🎈 PartyKit ⤫ Remix 💿 </h1>
-      <ul>
-        <li>
-          <a
-            target="_blank"
-            href="https://remix.run/tutorials/blog"
-            rel="noreferrer"
-          >
-            15m Quickstart Blog Tutorial
-          </a>
-        </li>
-        <li>
-          <a
-            target="_blank"
-            href="https://remix.run/tutorials/jokes"
-            rel="noreferrer"
-          >
-            Deep Dive Jokes App Tutorial
-          </a>
-        </li>
-        <li>
-          <a target="_blank" href="https://remix.run/docs" rel="noreferrer">
-            Remix Docs
-          </a>
-        </li>
-      </ul>
+      {/* 
+      Oh no, this is causing an error!
 
+      Error: Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: object.
+      */}
+      <Video />
       <WhosHere host={partykitHost} />
     </div>
   );

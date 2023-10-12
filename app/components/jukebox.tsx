@@ -1,8 +1,6 @@
-"use client";
-
-import React, { useState, useEffect, useLayoutEffect } from "react";
-import ReactPlayer from "react-player";
-import { useMultiplayer } from "@/app/providers/multiplayer-context";
+import { useState, useEffect, useLayoutEffect } from "react";
+import ReactPlayer from "react-player/lazy";
+import { useMultiplayer } from "~/providers/multiplayer-context";
 
 export default function Jukebox() {
   const [player, setPlayer] = useState<ReactPlayer | null>(null);
@@ -58,7 +56,7 @@ export default function Jukebox() {
   const [playerIsVertical, setPlayerIsVertical] = useState(false);
   const ASPECT_RATIO = 16 / 9;
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const handleResize = () => {
       setWindowDimensions({
         width: window.innerWidth,
@@ -96,35 +94,33 @@ export default function Jukebox() {
 
   // pointer-events-none on the player container prevents the users from play/pausing
 
+  if (!showPlayer) {
+    return <div>Loading...</div>;
+  }
+
   return (
-    <div>
-      {showPlayer && (
-        <>
-          <div className="fixed top-0" style={containerStyle}>
-            <div className="absolute top-0 left-0 right-0 bottom-0 w-screen h-screen pointer-events-none">
-              <ReactPlayer
-                url="https://www.youtube.com/watch?v=ydYDqZQpim8"
-                muted={isMuted}
-                playing={isPlaying}
-                onReady={(event) => onReady(event)}
-                onPlay={() => onPlay()}
-                onPause={() => onPause()}
-                width={`${playerDimensions.width}px`}
-                height={`${playerDimensions.height}px`}
-              />
-            </div>
-          </div>
-          {isMuted && (
-            <button
-              className="absolute top-2 left-2 bg-red-400 hover:bg-red-500 text-white font-4xl z-10 px-1 cursor-pointer"
-              onClick={() => setIsMuted(false)}
-            >
-              Muted!
-              <br />
-              <span className="underline">Tap to enable sound</span>
-            </button>
-          )}
-        </>
+    <div className="fixed top-0" style={containerStyle}>
+      <div className="absolute top-0 left-0 right-0 bottom-0 w-screen h-screen pointer-events-none">
+        <ReactPlayer
+          url="https://www.youtube.com/watch?v=ydYDqZQpim8"
+          muted={isMuted}
+          playing={isPlaying}
+          onReady={(event) => onReady(event)}
+          onPlay={() => onPlay()}
+          onPause={() => onPause()}
+          width={`${playerDimensions.width}px`}
+          height={`${playerDimensions.height}px`}
+        />
+      </div>
+      {isMuted && (
+        <button
+          className="absolute top-2 left-2 bg-red-400 hover:bg-red-500 text-white font-4xl z-10 px-1 cursor-pointer"
+          onClick={() => setIsMuted(false)}
+        >
+          Muted!
+          <br />
+          <span className="underline">Tap to enable sound</span>
+        </button>
       )}
     </div>
   );
