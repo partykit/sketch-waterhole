@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import ReactPlayer from "react-player";
 import { useMultiplayer } from "~/providers/multiplayer-context";
+import UnmuteButton from "./jukebox-unmute-button";
 
 // @ts-ignore bundling issue with react-player
 const Player = ReactPlayer.default as typeof ReactPlayer;
@@ -117,16 +118,7 @@ export default function Jukebox() {
           />
         </div>
       </div>
-      {isMuted && (
-        <button
-          className="absolute top-2 left-2 bg-red-400 hover:bg-red-500 text-white font-4xl z-10 px-1 cursor-pointer"
-          onClick={() => setIsMuted(false)}
-        >
-          Muted!
-          <br />
-          <span className="underline">Tap to enable sound</span>
-        </button>
-      )}
+      {isMuted && <UnmuteButton unmute={() => setIsMuted(false)} />}
     </div>
   );
 }
