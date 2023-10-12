@@ -1,28 +1,36 @@
 {
   "name": "sketch-youtube",
-  "version": "0.1.0",
   "private": true,
+  "description": "🎈 PartyKit ⤫ Remix 💿",
+  "sideEffects": false,
+  "type": "module",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "build": "rimraf build && rimraf public/build && remix build",
+    "deploy": "npm run build && partykit deploy",
+    "dev": "remix dev --manual -c \"npm start\" --port 8002",
+    "start": "partykit dev"
   },
   "dependencies": {
-    "@types/node": "20.5.0",
-    "@types/react": "18.2.20",
-    "@types/react-dom": "18.2.7",
-    "autoprefixer": "10.4.15",
-    "eslint": "8.47.0",
-    "eslint-config-next": "13.4.16",
-    "next": "13.4.16",
-    "partykit": "^0.0.0-8330c57",
-    "partysocket": "^0.0.0-8330c57",
-    "postcss": "8.4.27",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "react-player": "^2.12.0",
-    "tailwindcss": "3.3.3",
-    "typescript": "5.1.6"
+    "@remix-run/css-bundle": "^2.0.1",
+    "@remix-run/react": "^2.0.1",
+    "isbot": "^3.7.0",
+    "partymix": "^0.0.4",
+    "partysocket": "^0.0.8",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@remix-run/dev": "^2.0.1",
+    "@remix-run/eslint-config": "^2.0.1",
+    "@types/react": "^18.2.24",
+    "@types/react-dom": "^18.2.8",
+    "concurrently": "^8.2.1",
+    "eslint": "^8.50.0",
+    "partykit": "^0.0.26",
+    "rimraf": "^5.0.5",
+    "typescript": "^5.2.2"
+  },
+  "engines": {
+    "node": ">=18.17.1"
   }
 }
