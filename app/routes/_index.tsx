@@ -21,9 +21,13 @@ export default function Index() {
   const { partykitHost } = useLoaderData<typeof loader>();
 
   return (
-    <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
+    <main
+      className="relative flex min-h-screen flex-col items-center justify-center p-6 bg-stone-200 font-sans"
+      style={{ minHeight: "100dvh" }}
+    >
+      <h1 className="text-4xl font-semibold pb-6 text-stone-300">Loading...</h1>
       <Jukebox />
       <WhosHere host={partykitHost} />
-    </div>
+    </main>
   );
 }

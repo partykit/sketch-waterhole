@@ -10,6 +10,7 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 import MultiplayerContextProvider from "./providers/multiplayer-context";
+import stylesheet from "~/tailwind.css";
 
 // PartyKit will inject the host into the server bundle
 // so let's read it here and expose it to the client
@@ -19,7 +20,7 @@ export function loader() {
 }
 
 export const links: LinksFunction = () => [
-  ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
+  { rel: "stylesheet", href: stylesheet },
 ];
 
 export default function App() {
@@ -34,12 +35,12 @@ export default function App() {
         <Links />
       </head>
       <body>
-        {/*<MultiplayerContextProvider host={partykitHost}>*/}
-        <Outlet />
-        <ScrollRestoration />
-        <Scripts />
-        {process.env.NODE_ENV === "development" && <LiveReload />}
-        {/*</MultiplayerContextProvider>*/}
+        <MultiplayerContextProvider host={partykitHost}>
+          <Outlet />
+          <ScrollRestoration />
+          <Scripts />
+          {process.env.NODE_ENV === "development" && <LiveReload />}
+        </MultiplayerContextProvider>
       </body>
     </html>
   );

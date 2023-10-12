@@ -1,4 +1,4 @@
-import { useState, useEffect, useLayoutEffect } from "react";
+import { useState, useEffect } from "react";
 import ReactPlayer from "react-player";
 import { useMultiplayer } from "~/providers/multiplayer-context";
 
@@ -102,18 +102,20 @@ export default function Jukebox() {
   }
 
   return (
-    <div className="fixed top-0" style={containerStyle}>
-      <div className="absolute top-0 left-0 right-0 bottom-0 w-screen h-screen pointer-events-none">
-        <Player
-          url="https://www.youtube.com/watch?v=ydYDqZQpim8"
-          muted={isMuted}
-          playing={isPlaying}
-          onReady={(event) => onReady(event)}
-          onPlay={() => onPlay()}
-          onPause={() => onPause()}
-          width={`${playerDimensions.width}px`}
-          height={`${playerDimensions.height}px`}
-        />
+    <div>
+      <div className="fixed top-0" style={containerStyle}>
+        <div className="absolute top-0 left-0 right-0 bottom-0 w-screen h-screen pointer-events-none">
+          <Player
+            url="https://www.youtube.com/watch?v=ydYDqZQpim8"
+            muted={isMuted}
+            playing={isPlaying}
+            onReady={(event) => onReady(event)}
+            onPlay={() => onPlay()}
+            onPause={() => onPause()}
+            width={`${playerDimensions.width}px`}
+            height={`${playerDimensions.height}px`}
+          />
+        </div>
       </div>
       {isMuted && (
         <button
