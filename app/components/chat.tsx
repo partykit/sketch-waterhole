@@ -1,9 +1,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import ChatNameForm from "@/app/components/ChatNameForm";
-import ChatForm from "./components/ChatForm";
-import { useMultiplayer } from "@/app/providers/multiplayer-context";
+import ChatNameForm from "./chat-name-input";
+import ChatForm from "./chat-message-input";
+import { useMultiplayer } from "~/providers/multiplayer-context";
 
 type ChatMessage = {
   name: string;

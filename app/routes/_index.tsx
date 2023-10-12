@@ -1,6 +1,7 @@
 import type { V2_MetaFunction } from "partymix";
 import Jukebox from "~/components/jukebox";
 import ConnectionBadge from "~/components/connection-badge";
+import Chat from "~/components/chat";
 
 export const meta: V2_MetaFunction = () => {
   return [
@@ -17,6 +18,7 @@ export default function Index() {
     >
       <h1 className="text-4xl font-semibold pb-6 text-stone-300">Loading...</h1>
       <Jukebox />
+      <Chat />
       <ConnectionBadge />
     </main>
   );
