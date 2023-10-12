@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useMultiplayer } from "@/app/providers/multiplayer-context";
-import ConnectionStatus from "./ConnectionStatus";
+import { useMultiplayer } from "~/providers/multiplayer-context";
+import ConnectionStatus from "~/components/connection-status";
 
 export default function ConnectionBadge() {
   const [connections, setConnections] = useState(0);
