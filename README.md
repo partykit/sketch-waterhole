@@ -1,19 +1,26 @@
-# Welcome to 🎈 PartyKit ⤫ Remix 💿!
+# sketch-waterhole
 
-This is a starter template for [Remix](https://remix.run) and [PartyKit](https://partykit.io). You can create a new project based on this template with the Remix CLI:
+Sometimes you just want to have a window open to a waterhole in the Namib Desert, watch the animals hang out, and chat with whoever else is there.
 
-```sh
-npx create-remix@latest ./my-partymix-app --template partykit/remix-starter
-```
+This is a single-serving website that presents [this NamibiaCam YouTube live stream](https://www.youtube.com/watch?v=ydYDqZQpim8) without any of the chrome and YouTube UI, and optional chat.
 
-- [Remix Docs](https://remix.run/docs)
-- [PartyKit Docs](https://docs.partykit.io/)
+[Come visit the waterhole!](https://waterhole.genmon.partykit.dev)
 
-_NB: This is a **beta** release, so expect some rough edges. Please file issues or feedback at https://github.com/partykit/remix-starter!_
+![Screenshot of the app showing the video stream and chat](/assets/waterhole.png)
 
-## Development
+## Experimental!
 
-You will be running two processes during development:
+This app was created during [Matt](https://interconnected.org)'s summer 2023 residency. The purpose is to experiment with multiplayer interactions, and simultaneously see what PartyKit can do. It's called a sketch because it's lightweight and quick, and because we learn something in making it.
+
+## What you'll find here
+
+This micro-app is built with Remix and PartyKit meaning that it can be hosted entirely from PartyKit's servers. Check out the [PartyKit x Remix starter template](https://github.com/partykit/remix-starter) for how to do this.
+
+Behind the scenes you'll see we're using [react-player](https://github.com/CookPete/react-player). This is a React component that wraps the YouTube player, and gives us a lot of control over how it behaves. So it's possible to share playback state and video URL between all clients, and make a shared jukebox -- a job for another time.
+
+## Development and deployment
+
+There are two servers that need to be started for development:
 
 - The Remix development server
 - The PartyKit server
@@ -24,16 +31,7 @@ Both are started with one command:
 npm run dev
 ```
 
-Open up [http://127.0.0.1:1999](http://127.0.0.1:1999) and you should be ready to go!
-
-If you want to check the production build, you can stop the dev server and run following commands:
-
-```sh
-npm run build
-npm start
-```
-
-Then refresh the same URL in your browser (no live reload for production builds).
+Open up [http://127.0.0.1:1999](http://127.0.0.1:1999) to see the site.
 
 ## Deployment
 
@@ -42,7 +40,3 @@ npm run deploy
 ```
 
 If you don't already have a PartyKit account, you'll be prompted to create one during the deploy process.
-
-## Thanks
-
-_(This starter based on the original template for [Cloudflare Workers](https://github.com/remix-run/remix/tree/main/templates/cloudflare-workers))_
