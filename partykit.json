@@ -3,8 +3,8 @@
   // remix compiles our actual entry point (party/main.ts) to build/index.js
   "main": "build/index.js",
   "parties": {
-    // we also have a sub party that we use just for geo presence
-    "geo": "party/geo.ts"
+    // we also have a sub party for the jukebox and chat
+    "jukebox": "party/jukebox.ts"
   },
   "serve": "public",
   "define": {

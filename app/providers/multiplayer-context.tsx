@@ -20,7 +20,7 @@ export default function MultiplayerContextProvider(props: {
 }) {
   const socket = usePartySocket({
     host: props.host,
-    //party: "youtube-party",
+    party: "jukebox",
     room: "shared-jukebox",
   });
 
