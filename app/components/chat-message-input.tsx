@@ -1,9 +1,13 @@
 import { useState } from "react";
+import TextInput from "./form-text-input";
+import Submit from "./form-submit";
 
-export default function ChatForm({
+export default function ChatMessageInput({
   sendMessage,
+  disabled,
 }: {
   sendMessage: (name: string) => void;
+  disabled: boolean;
 }) {
   const [messageInput, setMessageInput] = useState("");
 
@@ -18,21 +22,15 @@ export default function ChatForm({
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex justify-start items-center gap-4"
+      className="flex justify-start items-center gap-2 font-mono text-base"
     >
-      <input
-        type="text"
+      <TextInput
         placeholder="Enter a message..."
         value={messageInput}
-        onChange={(e) => setMessageInput(e.target.value)}
-        className="border-1 border-stone-300 p-2"
+        onChange={setMessageInput}
+        disabled={disabled}
       />
-      <button
-        type="submit"
-        className="border-1 border-stone-300 bg-white hover:bg-stone-200 p-2 whitespace-nowrap"
-      >
-        Send
-      </button>
+      <Submit disabled={disabled}>Send</Submit>
     </form>
   );
 }

@@ -1,6 +1,8 @@
 import { useState } from "react";
+import TextInput from "./form-text-input";
+import Submit from "./form-submit";
 
-export default function ChatNameForm({
+export default function ChatNameInput({
   setName,
 }: {
   setName: (name: string) => void;
@@ -17,21 +19,15 @@ export default function ChatNameForm({
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex justify-start items-center gap-4"
+      className="absolute bottom-0 left-0 p-2 z-10 flex justify-start items-center gap-2 font-mono text-base"
     >
-      <input
-        type="text"
-        placeholder="Enter a name to chat..."
+      <TextInput
+        placeholder="Want to chat?"
         value={nameInput}
-        onChange={(e) => setNameInput(e.target.value)}
-        className="border-1 border-stone-300 p-2"
+        onChange={setNameInput}
+        disabled={false}
       />
-      <button
-        type="submit"
-        className="border-1 border-stone-300 bg-white hover:bg-stone-200 p-2 whitespace-nowrap"
-      >
-        That’s me
-      </button>
+      <Submit disabled={false}>That’s my name</Submit>
     </form>
   );
 }

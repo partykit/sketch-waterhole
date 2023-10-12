@@ -2,6 +2,7 @@ import type { V2_MetaFunction } from "partymix";
 import Jukebox from "~/components/jukebox";
 import ConnectionBadge from "~/components/connection-badge";
 import Chat from "~/components/chat";
+import VideoCredit from "~/components/video-credit";
 
 export const meta: V2_MetaFunction = () => {
   return [
@@ -20,6 +21,7 @@ export default function Index() {
       <Jukebox />
       <Chat />
       <ConnectionBadge />
+      <VideoCredit />
     </main>
   );
 }

@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import ChatNameForm from "./chat-name-input";
-import ChatForm from "./chat-message-input";
+import ChatNameInput from "./chat-name-input";
+import ChatMessageInput from "./chat-message-input";
 import { useMultiplayer } from "~/providers/multiplayer-context";
 
 type ChatMessage = {
@@ -47,35 +47,36 @@ export default function Chat() {
 
   return (
     <div className="absolute left-0 bottom-0 w-full sm:w-60 h-60 p-2 flex flex-col justify-end items-start">
-      {!name && <ChatNameForm setName={setName} />}
-      {name !== null && (
-        <div className="flex flex-col gap-4">
-          <ul className="flex flex-col gap-2 items-start">
-            {messages.map((msg, i) => {
-              const message_age = MAX_MESSAGES - (messages.length - i);
-              let opacity = "";
-              if (message_age === 1) opacity = "opacity-25";
-              else if (message_age === 2) {
-                opacity = "opacity-75";
-              } else if (message_age < 1) {
-                opacity = "opacity-0";
-              }
-              return (
-                <li
-                  key={i}
-                  className={`flex flex-row gap-2 px-3 py-1 bg-white/90 rounded-full justify-start items-baseline ${opacity}`}
-                >
-                  <span className="text-black">{msg.message}</span>
-                  <span className="text-xs font-semibold text-black/50">
-                    {msg.name}
-                  </span>
-                </li>
-              );
-            })}
-          </ul>
-          <ChatForm sendMessage={sendMessage} />
+      {!name && <ChatNameInput setName={setName} />}
+      <div className={`flex flex-col gap-4 ${name === null ? "blur-sm" : ""}`}>
+        <ul className="flex flex-col gap-1 items-start">
+          {messages.map((msg, i) => {
+            const message_age = MAX_MESSAGES - (messages.length - i);
+            let opacity = "";
+            if (message_age === 1) opacity = "opacity-25";
+            else if (message_age === 2) {
+              opacity = "opacity-75";
+            } else if (message_age < 1) {
+              opacity = "opacity-0";
+            }
+            return (
+              <li
+                key={i}
+                className={`font-mono text-sm flex flex-row gap-3 px-2 py-1 bg-white/90 justify-start items-baseline ${opacity}`}
+              >
+                <span className="text-black/40">{msg.name}</span>
+                <span className="text-black">{msg.message}</span>
+              </li>
+            );
+          })}
+        </ul>
+        <div className={name === null ? "opacity-0" : ""}>
+          <ChatMessageInput
+            sendMessage={sendMessage}
+            disabled={name === null}
+          />
         </div>
-      )}
+      </div>
     </div>
   );
 }

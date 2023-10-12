@@ -1,5 +1,4 @@
 import type { LinksFunction } from "partymix";
-import { cssBundleHref } from "@remix-run/css-bundle";
 import { useLoaderData } from "@remix-run/react";
 import {
   Links,
