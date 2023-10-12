@@ -1,6 +1,9 @@
 import { useState, useEffect, useLayoutEffect } from "react";
-import ReactPlayer from "react-player/lazy";
+import ReactPlayer from "react-player";
 import { useMultiplayer } from "~/providers/multiplayer-context";
+
+// @ts-ignore bundling issue with react-player
+const Player = ReactPlayer.default as typeof ReactPlayer;
 
 export default function Jukebox() {
   const [player, setPlayer] = useState<ReactPlayer | null>(null);
@@ -101,7 +104,7 @@ export default function Jukebox() {
   return (
     <div className="fixed top-0" style={containerStyle}>
       <div className="absolute top-0 left-0 right-0 bottom-0 w-screen h-screen pointer-events-none">
-        <ReactPlayer
+        <Player
           url="https://www.youtube.com/watch?v=ydYDqZQpim8"
           muted={isMuted}
           playing={isPlaying}
