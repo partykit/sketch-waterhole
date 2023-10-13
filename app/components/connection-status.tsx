@@ -52,7 +52,7 @@ export default function ConnectionStatus(props: {
   }
 
   return (
-    <div className="z-20 fixed bottom-2 right-2 flex justify-end">
+    <div className="z-20 fixed top-2 sm:bottom-2 right-2 flex justify-end items-end">
       <div className="flex gap-1 sm:gap-2 justify-center items-center bg-stone-50 rounded-full shadow-md border border-stone-300 pl-2 sm:pl-3 pr-1 sm:pr-2 py-1 sm:py-2">
         <p className="text-xs font-base uppercase tracking-wider leading-none text-stone-500">
           {badge}

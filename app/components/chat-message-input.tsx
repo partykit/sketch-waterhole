@@ -22,7 +22,7 @@ export default function ChatMessageInput({
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex justify-start items-center gap-2 font-mono text-base"
+      className="flex w-fill justify-stretch items-center gap-2 font-mono text-base"
     >
       <TextInput
         placeholder="Enter a message..."

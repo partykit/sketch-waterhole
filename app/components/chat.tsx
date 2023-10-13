@@ -46,9 +46,13 @@ export default function Chat() {
   };
 
   return (
-    <div className="absolute left-0 bottom-0 w-full sm:w-60 h-60 p-2 flex flex-col justify-end items-start">
+    <div className="absolute left-0 bottom-0 w-full sm:w-96 h-80 p-1 sm:p-2 flex flex-col justify-end items-start">
       {!name && <ChatNameInput setName={setName} />}
-      <div className={`flex flex-col gap-4 ${name === null ? "blur-sm" : ""}`}>
+      <div
+        className={`w-full flex flex-col gap-4 ${
+          name === null ? "blur-sm" : ""
+        }`}
+      >
         <ul className="flex flex-col gap-1 items-start">
           {messages.map((msg, i) => {
             const message_age = MAX_MESSAGES - (messages.length - i);

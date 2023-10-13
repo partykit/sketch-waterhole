@@ -19,15 +19,15 @@ export default function ChatNameInput({
   return (
     <form
       onSubmit={handleSubmit}
-      className="absolute bottom-0 left-0 p-2 z-10 flex justify-start items-center gap-2 font-mono text-base"
+      className="absolute w-full bottom-0 left-0 p-2 z-10 flex justify-stretch items-center gap-2 font-mono text-base"
     >
       <TextInput
-        placeholder="Want to chat?"
+        placeholder="Enter name to see chat"
         value={nameInput}
         onChange={setNameInput}
         disabled={false}
       />
-      <Submit disabled={false}>That’s my name</Submit>
+      <Submit disabled={false}>That’s me</Submit>
     </form>
   );
 }
