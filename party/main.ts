@@ -8,8 +8,12 @@ if (process.env.NODE_ENV === "development") {
   logDevReady(build);
 }
 
+function getLoadContext(request, lobby, ctx) {
+  return lobby.env;
+}
+
 // create a request handler for remix
-const handleRequest = createRequestHandler({ build });
+const handleRequest = createRequestHandler({ build, getLoadContext });
 
 // This "main" party server simnply handles all regular http requests
 export default class MyRemix implements Party.Server {

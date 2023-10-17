@@ -13,6 +13,7 @@
   "dependencies": {
     "@remix-run/css-bundle": "^2.0.1",
     "@remix-run/react": "^2.0.1",
+    "fathom-client": "^3.5.0",
     "isbot": "^3.7.0",
     "partymix": "^0.0.4",
     "partysocket": "^0.0.8",

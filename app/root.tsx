@@ -8,14 +8,15 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
-import MultiplayerContextProvider from "./providers/multiplayer-context";
+import MultiplayerContextProvider from "~/providers/multiplayer-context";
+import Fathom from "~/components/fathom";
 import stylesheet from "~/tailwind.css";
 
 // PartyKit will inject the host into the server bundle
 // so let's read it here and expose it to the client
 declare const PARTYKIT_HOST: string;
-export function loader() {
-  return { partykitHost: PARTYKIT_HOST };
+export function loader({ context }) {
+  return { partykitHost: PARTYKIT_HOST, ...context };
 }
 
 export const links: LinksFunction = () => [
@@ -34,6 +35,7 @@ export default function App() {
         <Links />
       </head>
       <body>
+        <Fathom />
         <MultiplayerContextProvider host={partykitHost}>
           <Outlet />
           <ScrollRestoration />
