@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "build": "rimraf build && rimraf public/build && remix build",
-    "deploy": "npm run build && partykit deploy",
+    "deploy": "npm run build && partykit deploy --with-vars",
     "dev": "remix dev --manual -c \"npm start\" --port 8002",
     "start": "partykit dev"
   },
