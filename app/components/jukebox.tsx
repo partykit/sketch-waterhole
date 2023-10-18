@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import ReactPlayer from "react-player";
 import { useMultiplayer } from "~/providers/multiplayer-context";
 import UnmuteButton from "./jukebox-unmute-button";
+import AboutButton from "./about-button";
+import AboutModal from "./about-modal";
 
 // @ts-ignore bundling issue with react-player
 const Player = ReactPlayer.default as typeof ReactPlayer;
@@ -11,6 +13,7 @@ export default function Jukebox() {
   const [showPlayer, setShowPlayer] = useState(false);
   const [isPlaying, setIsPlaying] = useState(true);
   const [isMuted, setIsMuted] = useState(true);
+  const [showAbout, setShowAbout] = useState(false);
   const { socket } = useMultiplayer();
 
   useEffect(() => {
@@ -118,7 +121,13 @@ export default function Jukebox() {
           />
         </div>
       </div>
-      {isMuted && <UnmuteButton unmute={() => setIsMuted(false)} />}
+      <div className="absolute z-10 top-2 left-2 flex flex-col gap-2 justify-start items-start">
+        {isMuted && <UnmuteButton unmute={() => setIsMuted(false)} />}
+        <AboutButton showAbout={showAbout} setShowAbout={setShowAbout} />
+      </div>
+      {showAbout && (
+        <AboutModal showAbout={showAbout} setShowAbout={setShowAbout} />
+      )}
     </div>
   );
 }
